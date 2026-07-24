@@ -37,7 +37,7 @@ button { font: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .wordmark { display: flex; align-items: center; gap: 11px; font-size: 11px; font-weight: 600; line-height: 1.15; letter-spacing: .04em; color: var(--ink); }
-.wordmark-logo { height: 44px; width: auto; display: block; }
+.wordmark-logo { height: 64px; width: auto; display: block; }
 nav { display: flex; gap: clamp(20px, 3vw, 44px); }
 nav a, .header-code { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .03em; color: var(--muted); }
 nav a:hover, .header-code:hover { color: var(--accent); }
@@ -155,6 +155,7 @@ footer a:hover { color: var(--accent); }
 
 @media (max-width: 760px) {
   .site-header { grid-template-columns: 1fr auto; padding: 17px 20px; }
+  .wordmark-logo { height: 48px; }
   .menu-toggle { display: block; background: none; border: 1px solid var(--line); border-radius: 3px; padding: 6px 10px; font-family: "DM Mono", monospace; font-size: 11px; color: var(--muted); }
   .header-code { display: none; }
   nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); padding: 25px 20px; border-bottom: 1px solid var(--line); flex-direction: column; }
