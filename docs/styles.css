@@ -37,7 +37,7 @@ button { font: inherit; }
   border-bottom: 1px solid var(--line);
 }
 .wordmark { display: flex; align-items: center; gap: 11px; font-size: 11px; font-weight: 600; line-height: 1.15; letter-spacing: .04em; color: var(--ink); }
-.wordmark-logo { height: 30px; width: auto; display: block; }
+.wordmark-logo { height: 44px; width: auto; display: block; }
 nav { display: flex; gap: clamp(20px, 3vw, 44px); }
 nav a, .header-code { font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .03em; color: var(--muted); }
 nav a:hover, .header-code:hover { color: var(--accent); }
