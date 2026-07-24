@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#faf9f6">
+  <meta name="description" content="Two robot arms learn to throw, catch, and place a box together — trained in simulation and deployed on real Franka arms.">
+  <meta property="og:title" content="Bimanual Manipulation">
+  <meta property="og:description" content="Two robot arms learn to throw, catch, and place a box together.">
+  <meta property="og:image" content="media/multi_env.png">
+  <title>Bimanual Manipulation — Learning Dynamic Bimanual Skills with Flow Matching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="Bimanual Manipulation home">
+      <span class="mark" aria-hidden="true"><i></i><i></i></span>
+      <span>Bimanual<br>Manipulation</span>
+    </a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" aria-label="Primary navigation">
+      <a href="#overview">Overview</a>
+      <a href="#approach">How it works</a>
+      <a href="#results">Results</a>
+      <a href="#real">Real robots</a>
+      <a href="#resources">Resources</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="eyebrow reveal">Research project · Robots that throw and catch</div>
+      <h1 class="reveal">Learning Compliant Dynamic Bimanual Visuomotor Skills<br>from Dynamical Systems with 3D Flow-Matching Policies</h1>
+      <p class="hero-copy reveal">We taught a pair of robot arms to pick up a box and throw it at a target, and — separately — to catch a box out of the air, hold it together, and set it down. Both skills are learned in simulation and then run on real Franka arms.</p>
+      <div class="hero-actions reveal">
+        <a class="button primary" href="#overview">Explore the project <span>↓</span></a>
+      </div>
+
+      <div class="hero-stage reveal">
+        <div class="stage-label"><span>01</span> Learned policy, live rollout</div>
+        <video autoplay muted loop playsinline poster="media/multi_env.png" aria-label="Dual-arm learned policy in simulation">
+          <source src="media/play_policy.mp4" type="video/mp4">
+        </video>
+        <div class="stage-note">Two arms<br>one coordinated action</div>
+      </div>
+    </section>
+
+    <section class="statement" id="overview">
+      <div class="section-index">01 / Overview</div>
+      <div>
+        <p class="lead reveal">Throwing and catching happen in under a second. There's no time to plan — the robots have to <span>react, coordinate, and commit</span> all at once.</p>
+        <p class="support reveal">Most robot learning works well for slow, deliberate tasks like picking something up off a table. Fast, physical skills are much harder to teach, because it's difficult to collect real examples of them safely. So instead, we built a training ground in simulation: two Franka arms practice thousands of throws and catches on randomized boxes, and what they learn there is transferred onto the real hardware.</p>
+      </div>
+    </section>
+
+    <section class="task-grid" aria-label="Project tasks">
+      <article class="task-card task-throw reveal">
+        <div class="card-top"><span>Task A</span><span>Pick &amp; throw</span></div>
+        <video autoplay muted loop playsinline aria-label="Box thrown to a target">
+          <source src="media/left.mp4" type="video/mp4">
+        </video>
+        <div class="card-body">
+          <h2>Pick it up.<br>Throw it on target.</h2>
+          <p>One learned policy handles the whole motion: gripping the box, swinging both arms together, and releasing at just the right moment to land it on target.</p>
+          <ul>
+            <li>Sees the box through a simulated camera</li>
+            <li>Learns exactly when to grip and let go</li>
+            <li>Adjusts its swing for different landing spots</li>
+          </ul>
+          <div class="phase-strip">
+            <img src="media/throw_sim.jpg" alt="Simulated throw sequence: approach, swing, and release" loading="lazy">
+          </div>
+        </div>
+      </article>
+      <article class="task-card task-catch reveal">
+        <div class="card-top"><span>Task B</span><span>Catch &amp; place</span></div>
+        <video autoplay muted loop playsinline aria-label="Dual-arm catch and place">
+          <source src="media/fm_catch.mp4" type="video/mp4">
+        </video>
+        <div class="card-body">
+          <h2>Catch it mid-air.<br>Set it down together.</h2>
+          <p>A second policy tracks an incoming box, closes both arms around it at the right instant, and carries it as one unit to a target shelf.</p>
+          <ul>
+            <li>Predicts where the box will arrive</li>
+            <li>Closes both arms in sync to trap it</li>
+            <li>Carries and places it without dropping it</li>
+          </ul>
+          <div class="phase-strip">
+            <img src="media/catch_sim.jpg" alt="Simulated catch sequence: intercept, carry, and place" loading="lazy">
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="approach" id="approach">
+      <div class="section-heading">
+        <div class="section-index">02 / How it works</div>
+        <h2 class="reveal">Practice first.<br><em>Real senses second.</em></h2>
+      </div>
+      <ol class="pipeline-steps reveal">
+        <li>
+          <span>01</span>
+          <div><h3>Practice thousands of times in simulation</h3><p>A simple scripted controller throws and catches randomized boxes over and over in a physics simulator, producing a large library of good technique to learn from.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><h3>Learn from a privileged expert</h3><p>A first model learns to imitate that controller, using full knowledge of the box's exact position — information a real robot doesn't have.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><h3>Learn to work from real senses only</h3><p>A second, deployable model then learns to reproduce the same behavior using only what the real robot can sense: its own joints and a depth camera.</p></div>
+        </li>
+        <li>
+          <span>04</span>
+          <div><h3>Run live on two robots</h3><p>The trained model runs on the physical arms, turning its predictions into motor commands many times a second so both arms move together in real time.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- <section class="results" id="results">
+      <div class="section-heading">
+        <div class="section-index">03 / Results</div>
+        <h2 class="reveal">Behaviors in motion.</h2>
+      </div>
+      <div class="filmstrip">
+        <figure class="result-wide reveal">
+          <video autoplay muted loop playsinline aria-label="Throw policy rollout at different target positions">
+            <source src="media/centre.mp4" type="video/mp4">
+          </video>
+          <figcaption><span>01</span><div><strong>Throwing at different targets</strong><p>The same policy adjusts its swing to hit different landing spots, instead of memorizing one throw.</p></div></figcaption>
+        </figure>
+        <figure class="result-small reveal">
+          <img src="media/multi_env.png" alt="Parallel Isaac Gym environments generating robot demonstrations" loading="lazy">
+          <figcaption><span>02</span><div><strong>Training happens in parallel</strong><p>Simulation runs many robot pairs at once, generating thousands of randomized throws and catches quickly.</p></div></figcaption>
+        </figure>
+        <figure class="result-small reveal">
+          <video autoplay muted loop playsinline aria-label="Full catch and place rollout">
+            <source src="media/catch_and_place.mp4" type="video/mp4">
+          </video>
+          <figcaption><span>03</span><div><strong>Catch, then place</strong><p>The full motion, from intercepting the box in the air to setting it down on the shelf.</p></div></figcaption>
+        </figure>
+      </div>
+      <div class="numbers">
+        <div class="number reveal"><strong>17/20</strong><span>Catch-and-place attempts<br>placed successfully in simulation</span></div>
+        <div class="number reveal"><strong>16/20</strong><span>Throws released on cue<br>after a full pick-up in simulation</span></div>
+        <div class="number reveal"><strong>4/5</strong><span>Times the robots kept their grip<br>after being pushed mid-carry</span></div>
+      </div>
+    </section> -->
+
+    <section class="real" id="real">
+      <div class="section-heading">
+        <div class="section-index">04 / Real robots</div>
+        <h2 class="reveal">Off the simulator.<br><em>Onto the hardware.</em></h2>
+      </div>
+      <p class="support reveal">Both policies were trained entirely in simulation and then run, unchanged, on two physical Franka arms with a depth camera. The same phases show up on the real hardware — approach, grip, swing or intercept, and release — though real sensors are noisier than simulation, so overall success rates are a bit lower than in simulation. In one robustness check, we pushed and tugged on the box mid-carry: the robots kept their grip and stayed balanced in 4 of 5 trials.</p>
+      <div class="real-grid">
+        <figure class="reveal">
+          <img src="media/throw_real.jpg" alt="Physical throw sequence: grip, swing, and release on the real robots" loading="lazy">
+          <figcaption><span>01</span><strong>Pick &amp; throw, on hardware</strong><p>The real arms grip the box, swing together, and release it toward a marked target.</p></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="media/catch_real.svg" alt="Physical catch sequence: intercept, carry, and place on the real robots" loading="lazy">
+          <figcaption><span>02</span><strong>Catch &amp; place, on hardware</strong><p>The real arms intercept the falling box, close around it, and carry it to the target.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- <section class="status">
+      <div class="section-index">05 / Research status</div>
+      <div class="status-columns">
+        <div class="reveal">
+          <h2>What works now</h2>
+          <p>Full catch-and-place and pick-and-throw motions running in simulation and on the real robots, with the robots learning entirely from their own sensors and a camera rather than teleoperated demonstrations.</p>
+        </div>
+        <div class="reveal">
+          <h2>What comes next</h2>
+          <p>More reliable placement, testing across a wider range of targets and box shapes, and closing more of the gap between simulation and real-world performance.</p>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- <section class="resources" id="resources">
+      <div class="section-heading">
+        <div class="section-index">06 / Resources</div>
+        <h2 class="reveal">Build on the work.</h2>
+      </div>
+      <div class="resource-list">
+        <a class="resource reveal" href="#">
+          <span class="resource-number">01</span><span class="resource-title">Code repository</span><span class="resource-meta">Isaac Gym · PyTorch · Python</span><span class="arrow">↗</span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-number">02</span><span class="resource-title">Technical paper</span><span class="resource-meta">Methods · Architecture · Experiments</span><span class="arrow">↗</span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-number">03</span><span class="resource-title">Quick start</span><span class="resource-meta">Installation · Training · Evaluation</span><span class="arrow">↗</span>
+        </a>
+      </div>
+    </section> -->
+
+    <!-- <section class="citation">
+      <div>
+        <div class="section-index">Citation</div>
+        <h2>If this work helps your research, please cite the project.</h2>
+      </div>
+      <div class="code-wrap">
+        <button class="copy-button" data-copy aria-label="Copy citation">Copy</button>
+        <pre><code id="citation">@misc{bimanual_manipulation_2026,
+  title  = {Dynamic Bimanual Manipulation},
+  author = {Anonymous},
+  year   = {2026},
+  url    = {https://anonymous.4open.science/}
+}</code></pre>
+      </div>
+    </section> -->
+  </main>
+
+  <footer>
+    <a class="wordmark" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i></span><span>Bimanual<br>Manipulation</span></a>
+    <p>Dynamic robot learning with two Franka FR3 arms.</p>
+    <div><span>Anonymous authors</span><span>2026</span></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
