@@ -8,7 +8,7 @@
   <meta property="og:title" content="3D-BiFlow">
   <meta property="og:description" content="Two robot arms learn to throw, catch, and place a box together.">
   <meta property="og:image" content="media/multi_env.png">
-  <title>3D-BiFlow — Learning Dynamic Bimanual Skills with Flow Matching</title>
+  <title>3D-BiFlow — Learning Compliant Bimanual Visuomotor Flow-Matching Policies for Dynamic Object Handling from Dynamical Systems</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
   <main id="main">
     <section class="hero" id="top">
       <div class="eyebrow reveal">Research project · Robots that throw and catch</div>
-      <h1 class="reveal">Learning Compliant Dynamic Bimanual Visuomotor Skills<br>from Dynamical Systems with 3D Flow-Matching Policies</h1>
+      <h1 class="reveal">Learning Compliant Bimanual Visuomotor Flow-Matching Policies for Dynamic Object Handling from Dynamical Systems</h1>
       <p class="hero-copy reveal">We taught a pair of robot arms to pick up a box and throw it at a target, and — separately — to catch a box out of the air, hold it together, and set it down. Both skills are learned in simulation and then run on real Franka arms.</p>
       <div class="hero-actions reveal">
         <a class="button primary" href="#overview">Explore the project <span>↓</span></a>
@@ -152,7 +152,7 @@
 
     <section class="real" id="real">
       <div class="section-heading">
-        <div class="section-index">04 / Real robots</div>
+        <div class="section-index">03 / Real robots</div>
         <h2 class="reveal">Off the simulator.<br><em>Onto the hardware.</em></h2>
       </div>
       <p class="support reveal">Both policies were trained entirely in simulation and then run, unchanged, on two physical Franka arms with a depth camera. The same phases show up on the real hardware — approach, grip, swing or intercept, and release — though real sensors are noisier than simulation, so overall success rates are a bit lower than in simulation. In one robustness check, we pushed and tugged on the box mid-carry: the robots kept their grip and stayed balanced in 4 of 5 trials.</p>
